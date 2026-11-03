@@ -1,0 +1,62 @@
+/* =========================================================
+   Talenta · Visor mínimo: solo el prototipo a pantalla completa
+   ========================================================= */
+
+html,body{height:100%;overflow:hidden;background:#fff}
+
+/* El artboard (1440 × 900) se escala para llenar la ventana */
+.stage{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:#fff;overflow:hidden;
+}
+.artboard-wrap{position:relative;flex:0 0 auto;width:calc(1440px * var(--z,1));height:calc(900px * var(--z,1))}
+.artboard{
+  position:absolute;top:0;left:0;width:1440px;height:900px;background:#fff;
+  transform:scale(var(--z,1));transform-origin:top left;overflow:hidden;
+}
+.screen-root{position:absolute;inset:0}
+
+/* ---------- Capas de Gestalt ---------- */
+.gx-layer{position:absolute;inset:0;pointer-events:none;z-index:80}
+.gx-box{
+  position:absolute;border:1.5px dashed #7C3AED;background:rgba(124,58,237,.055);
+  border-radius:6px;animation:gxin .25s ease;
+}
+.gx-tag{
+  position:absolute;top:-9px;left:-1px;transform:translateY(-100%);
+  background:#6D28D9;color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.02em;
+  padding:2px 6px;border-radius:5px;white-space:nowrap;box-shadow:0 2px 6px rgba(109,40,217,.3);
+}
+@keyframes gxin{from{opacity:0}to{opacity:1}}
+
+/* Único control flotante */
+.gx-toggle{
+  position:fixed;right:12px;bottom:12px;z-index:150;height:30px;padding:0 12px;
+  display:inline-flex;align-items:center;gap:6px;border-radius:999px;
+  background:rgba(255,255,255,.94);color:#44546B;border:1px solid #DDE4EF;
+  font-size:11.5px;font-weight:650;box-shadow:0 4px 14px -4px rgba(14,27,46,.3);
+  opacity:.72;transition:opacity .15s ease,background .15s ease,color .15s ease;
+}
+.gx-toggle:hover,.gx-toggle:focus-visible{opacity:1;color:#6D28D9;border-color:#C9B5F5}
+.gx-toggle .ic{width:14px;height:14px}
+.gx-toggle[aria-pressed="true"]{background:#6D28D9;border-color:#6D28D9;color:#fff;opacity:1}
+
+/* ---------- Avisos ---------- */
+.toast-stack{
+  position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:200;
+  display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;
+}
+.toast{
+  display:flex;align-items:center;gap:9px;padding:9px 14px;border-radius:10px;
+  background:var(--ink-900);color:#fff;font-size:12px;font-weight:550;
+  box-shadow:var(--shadow-3);animation:rise .2s ease;max-width:520px;
+}
+.toast .ic{width:16px;height:16px;flex:0 0 16px;color:#7FE0BE}
+.toast--bad .ic{color:#FFB4AB}
+.toast--warn .ic{color:#FFD08A}
+
+/* ---------- Diálogo de confirmación ---------- */
+.overlay{
+  position:fixed;inset:0;z-index:300;background:rgba(14,27,46,.42);backdrop-filter:blur(3px);
+  display:grid;place-items:center;padding:30px;animation:rise .15s ease;
+}
